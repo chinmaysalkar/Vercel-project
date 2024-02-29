@@ -1,0 +1,118 @@
+<!-- ========== App Menu ========== -->
+<div class="app-menu navbar-menu">
+    <!-- LOGO -->
+    <div class="navbar-brand-box">
+        <!-- Dark Logo-->
+        <a href="<%= process.env.AAP_URL %>" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="<%= process.env.AAP_URL %>assets/images/logo-sm-1.png" alt="" height="45">
+            </span>
+            <span class="logo-lg">
+                <img src="<%= process.env.AAP_URL %>assets/images/welearn_logo.png" alt="" height="75">
+                <!-- <b style="font-size: 30px;"> WELEARN </b> -->
+            </span>
+        </a>
+        <!-- Light Logo-->
+        <a href="<%= process.env.AAP_URL %>" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="<%= process.env.AAP_URL %>assets/images/logo-sm-1.png" alt="" height="45">
+            </span>
+            <span class="logo-lg">
+                <img src="<%= process.env.AAP_URL %>assets/images/welearn_logo.png" alt="" height="75">
+                <!-- <b style="font-size: 30px;"> WELEARN </b> -->
+            </span>
+        </a>
+        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
+            id="vertical-hover">
+            <i class="ri-record-circle-line"></i>
+        </button>
+    </div>
+
+    <div id="scrollbar">
+        <div class="container-fluid">
+
+            <div id="two-column-menu">
+            </div>
+
+            <ul class="navbar-nav" id="navbar-nav">
+                <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                <% if(auth_data.role=="superadmin" ){ %>
+                <!-- <li class="nav-item">
+                    <a class="nav-link menu-link" href="<%= process.env.AAP_URL %>">
+                        <i class="bx bxs-dashboard"></i> <span data-key="t-dashboard">Dashboard</span>
+                    </a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="bx bx-book-content"></i> <span data-key="t-dashboards">Master</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarDashboards">
+                        <ul class="nav nav-sm flex-column">
+                            <!-- <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/college" class="nav-link" data-key="t-analytics"> College </a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/school" class="nav-link" data-key="t-crm"> School </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/board" class="nav-link" data-key="t-crm"> Board </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/medium" class="nav-link" data-key="t-crm"> Medium </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/standard" class="nav-link" data-key="t-crm"> Standard </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/subject" class="nav-link" data-key="t-crm"> Subjects </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/chapter" class="nav-link" data-key="t-crm"> Chapter </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/topic" class="nav-link" data-key="t-crm"> Topics </a>
+                            </li> -->
+                            <!-- <li class="nav-item">
+                                <a href="<%= process.env.AAP_URL %>superadmin/plan" class="nav-link" data-key="t-crm"> Plans </a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="<%= process.env.AAP_URL %>superadmin/student">
+                        <i class="bx bxs-dashboard"></i> <span data-key="t-student">Students</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="<%= process.env.AAP_URL %>superadmin/question">
+                        <i class="bx bxs-dashboard"></i> <span data-key="t-student">Questions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="<%= process.env.AAP_URL %>superadmin/test">
+                        <i class="bx bxs-dashboard"></i> <span data-key="t-student">Tests</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="<%= process.env.AAP_URL %>superadmin/studymaterial">
+                        <i class="bx bxs-dashboard"></i> <span data-key="t-student">Study Materials</span>
+                    </a>
+                </li>
+                <% } %>
+                <!-- end Dashboard Menu -->
+                <% if(auth_data.role=="seller" ){ %>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="<%= process.env.AAP_URL %>" role="button">
+                            <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+    <div class="sidebar-background"></div>
+</div>
+<!-- Left Sidebar End -->
+<!-- Vertical Overlay-->
+<div class="vertical-overlay"></div>

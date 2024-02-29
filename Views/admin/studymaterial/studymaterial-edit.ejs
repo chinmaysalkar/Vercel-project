@@ -1,0 +1,705 @@
+<%- contentFor('HeaderCss') %>
+    <link href="<%= process.env.AAP_URL %>assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="<%= process.env.AAP_URL %>assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
+        type="text/css" />
+    <!-- Filepond css -->
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/libs/filepond/filepond.min.css" type="text/css" />
+    <link rel="stylesheet"
+        href="<%= process.env.AAP_URL %>assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css">
+
+    <link href="<%= process.env.AAP_URL %>assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <!-- One of the following themes -->
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/libs/@simonwep/pickr/themes/classic.min.css" />
+    <!-- 'classic' theme -->
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/libs/@simonwep/pickr/themes/monolith.min.css" />
+    <!-- 'monolith' theme -->
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/libs/@simonwep/pickr/themes/nano.min.css" />
+    <!-- 'nano' theme -->
+    <!-- Plugins css -->
+    <link href="<%= process.env.AAP_URL %>assets/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"
+        integrity="sha512-cyzxRvewl+FOKTtpBzYjW6x6IAYUCZy3sGP40hn+DQkqeluGRCax7qztK2ImL64SA+C7kVWdLI6wvdlStawhyw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <%- contentFor('body') %>
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <a href="javascript:history.go(-1)" class="btn btn-primary waves-effect"><i
+                                class="las la-long-arrow-alt-left"></i> Back</a>
+
+                    </div>
+                    <!-- end card header -->
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form class="form needs-validation" id="edit_form" enctype="multipart/form-data"
+                                method="post" action="<%= process.env.AAP_URL %>superadmin/studymaterial/update">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="school" class="form-label">School: <span style="color: red;">*</span></label>
+                                            <select class="form-select input mb-3 school" name="school" id="school">
+                                                <option value="">Select School</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="board" class="form-label">Board: <span style="color: red;">*</span></label>
+                                            <select class="form-select input mb-3 board" name="board" id="board">
+                                                <option value="">Select Board</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="medium" class="form-label">Medium: <span style="color: red;">*</span></label>
+                                            <select class="form-select input mb-3 medium" name="medium" id="medium">
+                                                <option value="">Select Medium</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="standard" class="form-label">Standard: <span style="color: red;">*</span></label>
+                                            <select class="form-select input mb-3 standard" name="standard"
+                                                id="standard">
+                                                <option value="">Select Standard</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="subject" class="form-label">Subject: <span style="color: red;">*</span></label>
+                                            <select class="form-select input mb-3 subject" name="subject" id="subject">
+                                                <option value="">Select Subject</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="chapter" class="form-label">Chapter: <span style="color: red;">*</span></label>
+                                            <select class="form-select input mb-3 chapter" name="chapter" id="chapter">
+                                                <option value="">Select Chapter</option>
+                                            </select>
+                                            <input type="hidden" name="id" value="<%= user_data._id%>">
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="studymaterial_status" class="form-label">Status</label>
+                                            <select class="form-select input mb-3" name="studymaterial_status"
+                                                id="studymaterial_status">
+                                                <option value="">Select Status </option>
+                                                <option value="1" <% if(user_data.status==true ){ %>selected <% } %>
+                                                        >Active</option>
+                                                <option value="0" <% if(user_data.status==false ){ %>selected <% } %>
+                                                        >Inactive</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Content Section: <span style="color: red;">*</span></h5>
+                                    </div>
+
+                                    <div id="customerList">
+                                        <div class="row g-4 mb-3">
+                                            <div class="col-sm-auto">
+                                                <div>
+                                                    <button type="button" class="btn btn-success add-btn"
+                                                        data-bs-toggle="modal" id="create-btn"
+                                                        data-bs-target="#showModal"><i
+                                                            class="ri-add-line align-bottom me-1"></i> Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-responsive table-card mt-3 mb-1">
+                                            <table class="table align-middle table-nowrap" id="customerTable">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Order</th>
+                                                        <th>Type</th>
+                                                        <th>Title</th>
+                                                        <th>Description</th>
+                                                        <th>Hyperlink</th>
+                                                        <th>Test</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="list form-check-all">
+                                                    <% if(media.forEach((data,index)=> { %>
+                                                        <tr>
+                                                            <td>
+                                                                <%= data.order%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data.type%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data.title%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data.description%>
+                                                            </td>
+                                                            <td>
+                                                                <% if(data.hasOwnProperty('hyperlink') && data.hyperlink){ %>
+                                                                    <%= data.hyperlink %>
+                                                                <% } else { %>
+                                                                    <span>No Hyperlink</span>
+                                                                <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <% if(data.test==null){ %>
+                                                                    <span>No Test</span>
+                                                                    <% }else { %>
+                                                                        <span>
+                                                                            <%= data.test.title%>
+                                                                        </span>
+                                                                        <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <ul class="list-inline hstack gap-2 mb-0">
+                                                                    <li class="list-inline-item edit"
+                                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                        data-bs-placement="top" title="Edit">
+                                                                        <a href="javascript:void(0)"
+                                                                            data-bs-toggle="modal"
+                                                                            onclick="edit_data('<%= user_data._id %>','<%= data._id %>')"
+                                                                            class="text-primary d-inline-block edit-item-btn">
+                                                                            <i class="ri-pencil-fill fs-16"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-inline-item"
+                                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                                        data-bs-placement="top" title="Remove">
+                                                                        <a class="text-danger d-inline-block remove-item-btn"
+                                                                            data-bs-toggle="modal"
+                                                                            href="javascript:void(0)"
+                                                                            onclick="delete_data('<%= user_data._id %>','<%= data._id %>')">
+                                                                            <i class="ri-delete-bin-5-fill fs-16"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <% })) %>
+                                                </tbody>
+                                            </table>
+                                            <div class="noresult" style="display: none">
+                                                <div class="text-center">
+                                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json"
+                                                        trigger="loop" colors="primary:#121331,secondary:#08a88a"
+                                                        style="width:75px;height:75px">
+                                                    </lord-icon>
+                                                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                                                    <p class="text-muted mb-0">We've searched more than 150+ Orders We
+                                                        did not find any
+                                                        orders for you search.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" id="create_btn"
+                                            class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--end row-->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+
+        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-light p-3">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="close-modal"></button>
+                    </div>
+                    <form id="AddData" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="order" class="form-label">Order</label>
+                                <input type="number" class="form-control" id="order" name="order[]" placeholder="Order">
+                                <input type="hidden" class="form-control" id="modelid" name="modelid"
+                                    value="<%= user_data._id%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="type" class="form-label">Type</label>
+                                <select class="form-select" id="type" name="type[]" required>
+                                    <option value="">Select Type</option>
+                                    <option value="media">Media</option>
+                                    <option value="hyperlink">Hyperlink</option>
+                                    <option value="test">Test</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="title[]" placeholder="Title"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description[]"
+                                    placeholder="Description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hyperlink" class="form-label">HyperLink</label>
+                                <input type="text" class="form-control" id="hyperlink" name="hyperlink[]"
+                                    placeholder="HyperLink">
+                            </div>
+                            <div class="mb-3">
+                                <label for="test" class="form-label">Test</label>
+                                <select class="form-select test" id="test" name="test[]">
+                                    <option value="">Select Test</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <h5 class="fs-15 mb-1">Upload File</h5>
+                                <input class="filepond" id="mediafile" type="file" name="mediafile">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" id="add-btn" onclick="add_data()">Add
+                                    Study Material</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="updateData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-light p-3">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="close-modal"></button>
+                    </div>
+                    <form id="updateFormData" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="order" class="form-label">Order</label>
+                                <input type="number" class="form-control" id="editorder" name="order"
+                                    placeholder="Order">
+                                <input type="hidden" class="form-control" id="editid" name="editid">
+                                <input type="hidden" class="form-control" id="id" name="id" value="<%= user_data._id%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="type" class="form-label">Type</label>
+                                <select class="form-select" id="edittype" name="type">
+                                    <option value="">Select Type</option>
+                                    <option value="media">Media</option>
+                                    <option value="hyperlink">Hyperlink</option>
+                                    <option value="test">Test</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="edittitle" name="title" placeholder="Title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="editdescription" name="description"
+                                    placeholder="Description"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hyperlink" class="form-label">HyperLink</label>
+                                <input type="text" class="form-control" id="edithyperlink" name="hyperlink"
+                                    placeholder="HyperLink">
+                            </div>
+                            <div class="mb-3">
+                                <label for="test" class="form-label">Test</label>
+                                <select class="form-select etest" id="edittest" name="test">
+                                    <option value="">Select Test</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <h5 class="fs-15 mb-1">Upload File</h5>
+                                <input class="filepond" id="mediafile" type="file" name="mediafile">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" id="edit-btn"
+                                    onclick="update_data()">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-2 text-center">
+                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                            <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                <h4>Are you Sure ?</h4>
+                                <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete
+                                It!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal -->
+        <%- contentFor('FooterJs') %>
+
+            <!-- ckeditor -->
+            <script
+                src="<%= process.env.AAP_URL %>assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+            <!-- dropzone js -->
+            <script src="<%= process.env.AAP_URL %>assets/libs/dropzone/dropzone-min.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/ecommerce-product-create.init.js"></script>
+            <!-- prismjs plugin -->
+            <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery-3.6.0.min.js"></script>
+
+            <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery.validate.min.js"></script>
+            <!-- password-addon init -->
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/form-validation.init.js"></script>
+            <!--Wysiwig js-->
+            <script src="<%= process.env.AAP_URL %>assets/tinymce/tinymce.min.js"></script>
+            <!-- Sweet Alerts js -->
+            <script src="<%= process.env.AAP_URL %>assets/libs/sweetalert2/sweetalert2.min.js"></script>
+            <!-- Sweet alert init js-->
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/sweetalerts.init.js"></script>
+            <!-- filepond js -->
+            <script src="<%= process.env.AAP_URL %>assets/libs/filepond/filepond.min.js"></script>
+            <script
+                src="<%= process.env.AAP_URL %>assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+            <script
+                src="<%= process.env.AAP_URL %>assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+            <script
+                src="<%= process.env.AAP_URL %>assets/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+            <script
+                src="<%= process.env.AAP_URL %>assets/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/form-file-upload.init.js"></script>
+
+            <script src="<%= process.env.AAP_URL %>assets/libs/flatpickr/flatpickr.min.js"></script>
+            <!-- Modern colorpicker bundle -->
+            <script src="<%= process.env.AAP_URL %>assets/libs/@simonwep/pickr/pickr.min.js"></script>
+            <!-- init js -->
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/form-pickers.init.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"
+                integrity="sha512-6lplKUSl86rUVprDIjiW8DuOniNX8UDoRATqZSds/7t6zCQZfaCe3e5zcGaQwxa8Kpn5RTM9Fvl3X2lLV4grPQ=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+            <script>
+                $(document).ready(function () {
+                    school_list();
+                    board_list();
+                    test_list();
+                    $('#board').change(function () {
+                        var boardId = $('#board').val();
+                        board(boardId);
+                    });
+                    var selectedMediumId = '<%= user_data.medium %>';
+                    var selectedstdId = '<%= user_data.standard %>';
+                    var subjectId = '<%= user_data.subject %>';
+                    var schoolID = '<%= user_data.school %>';
+                    var boardId = '<%= user_data.board %>';
+                    var chapterId = '<%= user_data.chapter %>';
+                    medium(selectedMediumId, schoolID, selectedstdId);
+                    standard(selectedstdId, schoolID, selectedMediumId, boardId, subjectId);
+                    subject(selectedstdId, selectedMediumId, boardId, subjectId, chapterId);
+                });
+
+                function edit_data(edit_id, materialId) {
+                    $.get('<%= process.env.AAP_URL %>superadmin/studymaterial/editmodel/' + edit_id + '/' + materialId, {},
+                        function (data) {
+                            if (data.success == 1) {
+                                $(".input").val("");
+                                $('#editid').val(data.data._id);
+                                $('#editorder').val(data.data.order);
+                                $('#edittype').val(data.data.type);
+                                $('#edittitle').val(data.data.title);
+                                $('#editdescription').val(data.data.description);
+                                $('#edithyperlink').val(data.data.hyperlink);
+                                test_edit($('#edittest').val(data.data.test))
+
+                                $("#updateData").modal("show");
+                            }
+                        },
+                        'json');
+                }
+
+                $.validator.addMethod("email", function (value, element) {
+                    return this.optional(element) || value == value.match(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/);
+                }, "Please Enter Valid Email Address ");
+                $('#edit_form').validate({ // initialize the plugin
+
+                    errorClass: "error",
+                    rules: {
+                        name: {
+                            required: true,
+                        },
+                        description: {
+                            required: true,
+                        },
+                    },
+                    messages: {
+                        name: {
+                            required: 'Please enter category name',
+                        },
+                        description: {
+                            required: 'Please enter description',
+                        },
+                    },
+                    highlight: function (element) {
+                        $(element).addClass('input_error');
+                    },
+                    unhighlight: function (element) {
+                        $(element).removeClass('input_error');
+
+                    }
+                });
+
+                function delete_data(id, materialId) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then(function (willDelete) {
+                        if (willDelete.isConfirmed) {
+                            $.get('<%= process.env.AAP_URL %>superadmin/studymaterial/deletemodel/' + id + '/' + materialId, {},
+                                function (data) {
+                                    if (data.success == 1) {
+                                        window.location.reload();
+                                    }
+                                },
+                                'json');
+                        }
+
+                    });
+                }
+
+                function update_data() {
+                    // var formData = $("#updateFormData").serialize(); // replace "your-form-id" with your actual form's id
+                    // $.post('<%= process.env.AAP_URL %>superadmin/studymaterial/StudyMaterialAddList/', formData,
+                    //     function (data) {
+                    //         if (data.success == 1) {
+                    //             window.location.reload();
+                    //         }
+                    //     },
+                    //     'json');
+                    var formData = new FormData(document.getElementById('updateFormData')); // Create new FormData object
+                    $.ajax({
+                        url: '<%= process.env.AAP_URL %>superadmin/studymaterial/StudyMaterialAddList/',
+                        type: 'POST',
+                        data: formData,
+                        success: function (data) {
+                            if (data.success == 1) {
+                                window.location.href = '<%= process.env.AAP_URL %>superadmin/studymaterial';
+                            }
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+
+                function add_data() {
+                    var formData = new FormData(document.getElementById('AddData')); // Create new FormData object
+                    $.ajax({
+                        url: '<%= process.env.AAP_URL %>superadmin/studymaterial/StudyMaterialAddList/',
+                        type: 'POST',
+                        data: formData,
+                        success: function (data) {
+                            if (data.success == 1) {
+                                window.location.href = '<%= process.env.AAP_URL %>superadmin/studymaterial';
+                            }
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+
+                function test_list() {
+                    $.get('<%= process.env.AAP_URL %>superadmin/test-list', {},
+                        function (data) {
+                            if (data.success == 1) {
+                                var html = '<option value="">Select Test</option>';
+                                $.each(data.data, function (index, value) {
+                                    html += '<option value="' + value._id + '">' + value.title + '</option>';
+                                });
+                                $(".test").html(html);
+                            }
+                        },
+                        'json');
+                }
+
+                function test_edit(id) {
+                    $.get('<%= process.env.AAP_URL %>superadmin/test-list', {},
+                        function (data) {
+                            if (data.success == 1) {
+                                var html = '<option value="">Select Test</option>';
+                                $.each(data.data, function (index, value) {
+                                    if (id == value._id) {
+                                        html += '<option  selected value="' + value._id + '">' + value.title + '</option>';
+                                    } else {
+                                        html += '<option value="' + value._id + '">' + value.title + '</option>';
+                                    }
+                                });
+                                $(".etest").html(html);
+                            }
+                        },
+                        'json');
+                }
+
+                function school_list() {
+                    $.get('<%= process.env.AAP_URL %>superadmin/school-list', {},
+                        function (data) {
+                            if (data.success == 1) {
+                                var html = '<option value="">Select School</option>';
+                                $.each(data.data, function (index, value) {
+                                    if ('<%= user_data.school %>' == value._id) {
+                                        html += '<option  selected value="' + value._id + '">' + value.schoolName + '</option>';
+                                    } else {
+                                        html += '<option value="' + value._id + '">' + value.schoolName + '</option>';
+                                    }
+                                });
+                                $(".school").html(html);
+                            }
+                        },
+                        'json');
+                }
+
+                function board_list() {
+                    $.get('<%= process.env.AAP_URL %>superadmin/board-list', {},
+                        function (data) {
+                            if (data.success == 1) {
+                                var html = '<option value="">Select Board</option>';
+                                var selectedMediumId = '<%= user_data.medium %>';
+                                $.each(data.data, function (index, value) {
+                                    if ('<%= user_data.board %>' == value._id) {
+                                        html += '<option  selected value="' + value._id + '">' + value.boardName + '</option>';
+                                        board(value._id, selectedMediumId);
+                                    } else {
+                                        html += '<option value="' + value._id + '">' + value.boardName + '</option>';
+                                    }
+                                });
+                                $(".board").html(html);
+                            }
+                        },
+                        'json');
+                }
+
+                function board(id, board_id = null) {
+                    $.post('<%= process.env.AAP_URL %>superadmin/boarding', { board: id }, function (data) {
+                        if (data.success == 1) {
+                            var html = '<option value="">Select Medium</option>';
+                            $.each(data.data, function (index, value) {
+                                if (value._id == board_id) {
+                                    html += '<option value="' + value._id + '" selected>' + value.mediumName + '</option>';
+                                } else {
+                                    html += '<option value="' + value._id + '">' + value.mediumName + '</option>';
+                                }
+                            });
+                            $(".medium").html(html);
+                        } else {
+                            alert_msg("error", data.message);
+                        }
+                    });
+                }
+
+                function medium(id, schoolID, medium_id = null) {
+                    $.post('<%= process.env.AAP_URL %>superadmin/stdclass', { medium: id, school: schoolID }, function (data) {
+                        if (data.success == 1) {
+                            var html = '<option value="">Select Standard</option>';
+                            $.each(data.data, function (index, value) {
+                                if (value._id == medium_id) {
+                                    html += '<option value="' + value._id + '" selected>' + value.standardName + '</option>';
+                                } else {
+                                    html += '<option value="' + value._id + '">' + value.standardName + '</option>';
+                                }
+                            });
+                            $(".standard").html(html);
+                        } else {
+                            alert_msg("error", data.message);
+                        }
+                    });
+                }
+
+                function standard(id, schoolID, mediumId, boardId, standard_id = null) {
+                    $.post('<%= process.env.AAP_URL %>superadmin/stdsubject', { standard: id, school: schoolID, medium: mediumId, board: boardId }, function (data) {
+                        if (data.success == 1) {
+                            var html = '<option value="">Select Subject</option>';
+                            $.each(data.data, function (index, value) {
+                                if (value._id == standard_id) {
+                                    html += '<option value="' + value._id + '" selected>' + value.subjectName + '</option>';
+                                } else {
+                                    html += '<option value="' + value._id + '">' + value.subjectName + '</option>';
+                                }
+                            });
+                            $(".subject").html(html);
+                        } else {
+                            alert_msg("error", data.message);
+                        }
+                    });
+                }
+
+                function subject(id, mediumId, boardId, subjectId, subject_id = null) {
+                    $.post('<%= process.env.AAP_URL %>superadmin/stdchapter', { standard: id, medium: mediumId, board: boardId, subject: subjectId }, function (data) {
+                        if (data.success == 1) {
+                            var html = '<option value="">Select Chapter</option>';
+                            $.each(data.data, function (index, value) {
+                                if (value._id == subject_id) {
+                                    html += '<option value="' + value._id + '" selected>' + value.chapterName + '</option>';
+                                } else {
+                                    html += '<option value="' + value._id + '">' + value.chapterName + '</option>';
+                                }
+                            });
+                            $(".chapter").html(html);
+                        } else {
+                            alert_msg("error", data.message);
+                        }
+                    });
+                }
+
+            </script>
+            <!-- password-addon init -->
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/form-validation.init.js"></script>
+            <!-- Sweet Alerts js -->
+            <script src="<%= process.env.AAP_URL %>assets/libs/sweetalert2/sweetalert2.min.js"></script>
+            <!-- Sweet alert init js-->
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/sweetalerts.init.js"></script>

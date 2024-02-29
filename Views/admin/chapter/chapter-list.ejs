@@ -1,0 +1,236 @@
+<%- contentFor('HeaderCss') %>
+    <!--datatable css-->
+    <link href="<%= process.env.AAP_URL %>assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/css/datatable_css/dataTables.bootstrap5.min.css" />
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/css/datatable_css/responsive.bootstrap.min.css" />
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/css/datatable_css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/libs/bootstrap/css/bootstrap-grid.min.css"  />
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/select/1.6.2/css/select.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/datetime/1.4.0/css/dataTables.dateTime.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/rowreorder/1.3.3/css/rowReorder.dataTables.min.css" rel="stylesheet">
+    <link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet">
+    <style>
+        .error {
+            color: red;
+        }
+        </style>
+    <%- contentFor('body') %>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Chapter List</h4>
+
+                    <div class="flex-shrink-0">
+                        <div class="form-check form-switch form-switch-right form-switch-md">
+                            <label for="form-grid-showcode" class="form-label text-muted"><a href="<%= process.env.AAP_URL %>superadmin/chapter/create" class="btn btn-success waves-effect"  > <i class="las la-plus"></i> Create
+                                Chapter</a></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card header -->
+                <div class="card-body">
+                    <div class="live-preview">
+                        <%- include('../../layout/alert_msg') %>
+                            <div id="alert_msg" style="display: none;">
+                            </div>
+                            <table id="buttons-datatables" class="display table table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>SR.NO.</th>
+                                        <th>Chapter ID</th>
+                                        <th>Chapter Name</th>
+                                        <th>School</th>
+                                        <th>Board</th>
+                                        <th>Medium</th>
+                                        <th>Standard</th>
+                                        <th>Subject</th>
+                                        <th>CreatedBy</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% user_data.forEach((data,i)=> {
+
+                                        %>
+                                        <tr>
+                                            <td>
+                                                <%= i+1 %>
+                                            </td>
+                                            <td>
+                                                <%= data.chapterId %>
+                                            </td>
+                                            <td>
+                                                <%= data.chapterName %>
+                                            </td>
+                                            <td>
+                                                <%= data.school.schoolName %>
+                                            </td>
+                                            <td>
+                                                <%= data.board.boardName %>
+                                            </td>
+                                            <td>
+                                                <%= data.medium.mediumName %>
+                                            </td>
+                                            <td>
+                                                <%= data.standard.standardName %>
+                                            </td>
+                                            <td>
+                                                <%= data.subject.subjectName %>
+                                            </td>
+                                            <td>
+                                                <%= data.createdBy.name %>
+                                            </td>
+                                            <td>
+                                                <% if(data.status==true){ %>
+                                                    <span
+                                                        class="badge badge-soft-success text-uppercase">Active</span>
+                                                    <% }else if(data.status==false){ %>
+                                                        <span class="badge badge-soft-danger">Inactive</span>
+                                                        <% } %>
+                                            </td>
+                                            <td>
+                                                <ul class="list-inline hstack gap-2 mb-0">
+                                                    <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top"
+                                                        title="Edit">
+                                                        <a href="<%= process.env.AAP_URL %>superadmin/chapter/edit/<%= data._id %>"
+                                                            class="text-primary d-inline-block edit-item-btn">
+                                                            <i class="ri-pencil-fill fs-16"></i>
+                                                        </a>
+                                                    </li>
+                                                    <!-- <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top" title="Remove">
+                                                        <a class="text-danger d-inline-block remove-item-btn"
+                                                            data-bs-toggle="modal" href="javascript:void(0)" onclick="delete_data('<%= data._id %>')">
+                                                            <i class="ri-delete-bin-5-fill fs-16"></i>
+                                                        </a>
+                                                    </li> -->
+                                                </ul>
+                                            </td>
+
+                                        </tr>
+                                        <% }) %>
+                            </table>
+                            <!--end row-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--end col-->
+    </div>
+
+        <%- contentFor('FooterJs') %>
+            <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.1/js/bootstrap.min.js" integrity="sha512-vyRAVI0IEm6LI/fVSv/Wq/d0KUfrg3hJq2Qz5FlfER69sf3ZHlOrsLriNm49FxnpUGmhx+TaJKwJ+ByTLKT+Yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+            <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/select/1.6.2/js/dataTables.select.min.js"></script>
+            <script src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"></script>
+            <script src="https://cdn.datatables.net/rowreorder/1.3.3/js/dataTables.rowReorder.min.js"></script>
+            <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/datatable/jquery.dataTables.min.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/datatable/dataTables.bootstrap5.min.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/datatable/dataTables.responsive.min.js"></script>
+            <!-- <script src="<%= process.env.AAP_URL %>assets/js/datatable/dataTables.buttons.min.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/datatable/buttons.print.min.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/datatable/buttons.html5.min.js"></script> -->
+            <!-- <script src="<%= process.env.AAP_URL %>assets/js/datatable/vfs_fonts.js"></script> -->
+<!--             <script src="<%= process.env.AAP_URL %>assets/js/datatable/pdfmake.min.js"></script> -->
+            <script src="<%= process.env.AAP_URL %>assets/js/datatable/jszip.min.js"></script>
+
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/datatables.init.js"></script>
+            <!-- Sweet Alerts js -->
+            <script src="<%= process.env.AAP_URL %>assets/libs/sweetalert2/sweetalert2.min.js"></script>
+            <!-- Sweet alert init js-->
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/sweetalerts.init.js"></script>
+            <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery.validate.min.js" ></script>
+
+          
+
+            <!-- password-addon init -->
+            <script src="<%= process.env.AAP_URL %>assets/js/pages/passowrd-create.init.js"></script>
+            <!--ajax form-->
+            <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery.form.min.js" ></script>
+           
+            <script>
+              $('#change_password').validate({ // initialize the plugin
+
+                errorClass: "error",
+                rules: {
+                    
+                    new_password: {
+                        required: true,
+                    },
+                    confirm_password: {
+                        required: true,
+                        equalTo: "#new_password"
+                    }
+
+                },
+                messages: {
+                    new_password: {
+                        required: "Please enter the password",
+                    },
+                    confirm_password: {
+                        required: "Please enter the confirm password",
+                    }
+                },
+                highlight: function(element) {
+                    $(element).addClass('input_error');
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass('input_error');
+
+                }
+                });  
+
+                function delete_data(id) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to retrive back the products which is associated with this category!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then(function(willDelete) {
+                        if (willDelete.isConfirmed) {
+                            window.location.href = "<%= process.env.AAP_URL %>superadmin/category/delete/" + id;
+                        }
+
+                    });
+                }
+
+                function alert_msg(status, msg) {
+                    //(success,danger)
+                    var icon = 'notification-off-line';
+                    if (status != "success") {
+                        status = "danger";
+                        icon = 'error-warning-line';
+                    }
+                    var html = '';
+                    html += '<div class="alert alert-'+ status +' alert-dismissible alert-solid alert-label-icon fade show" role="alert">';
+                    html += '<i class="ri-'+ icon +' me-3 label-icon"></i>';
+                    html += '<div class="msg">' + msg + '</div>';
+                    html += ' <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"> </button>';
+                    html += '</div>';
+                    $("#alert_msg").html(html);
+                    $("#alert_msg").show();
+                    setTimeout(function () {
+                        $('#alert_msg').hide();
+                    }, 10000);
+                }
+
+                $(document).ready(function() {
+ 
+                });
+
+
+                
+            </script>

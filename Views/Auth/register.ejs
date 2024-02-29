@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title> <%-title%></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="<%= process.env.AAP_URL %>assets/images/favicon.ico">
+
+    <!-- Layout config Js -->
+    <script src="<%= process.env.AAP_URL %>assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="<%= process.env.AAP_URL %>assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet"
+        type="text/css" />
+    <!-- Icons Css -->
+    <link href="<%= process.env.AAP_URL %>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="<%= process.env.AAP_URL %>assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="<%= process.env.AAP_URL %>assets/css/custom.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- auth-page wrapper -->
+    <div class="auth-page-wrapper pt-5">
+        <!-- auth page bg -->
+        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+            <div class="bg-overlay"></div>
+
+            <div class="shape">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 1440 120">
+                    <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- auth page content -->
+        <div class="auth-page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center mt-sm-5 mb-4 text-white-50">
+                            <a href="index " class="d-block" style="color: #FFF; font-size:40px;">
+                                <!-- <img src="<%= process.env.AAP_URL %>assets/images/petroicon.png" alt="" height="170"> -->
+                                <b>WeLearn</b>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row justify-content-center">
+                    <div class="card mt-4">
+                        <div class="card-body p-4">
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary" style="font-size:25px;">Signup Form</h5>
+                            </div>
+                            <div class="p-2 mt-4">
+                                <form id="create_form" novalidate method="post" action="<%= process.env.AAP_URL %>signup" class="row g-3 needs-validation">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="+(245) 451 45123" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="city" class="form-label">City</label>
+                                        <input type="tel" class="form-control" name="city" id="city" placeholder="Enter your city" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="role" class="form-label">Role</label>
+                                        <select class="form-select input mb-3" name="role" id="role" required>
+                                            <option value="">Select Roles</option>
+                                            <option value="school">School</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="address" class="form-label">Address</label>
+                                        <textarea class="form-control" name="address" id="address" placeholder="1234 Main St" required></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-success">Sign in</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-4 text-center">
+                        <p class="mb-0">Already have an account ? <a href="<%= process.env.AAP_URL %>login"
+                                class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end auth page content -->
+
+        <!-- footer -->
+        <footer class="footer">
+            <!-- <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="mb-0 text-muted">&copy; <script>
+                                    document.write(new Date().getFullYear())
+                                </script> Velzon. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </footer>
+        <!-- end Footer -->
+    </div>
+    <!-- end auth-page-wrapper -->
+
+    <!-- JAVASCRIPT -->
+    <script src="<%= process.env.AAP_URL %>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<%= process.env.AAP_URL %>assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="<%= process.env.AAP_URL %>assets/libs/node-waves/waves.min.js"></script>
+    <script src="<%= process.env.AAP_URL %>assets/libs/feather-icons/feather.min.js"></script>
+    <script src="<%= process.env.AAP_URL %>assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="<%= process.env.AAP_URL %>assets/js/plugins.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"
+        integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="<%= process.env.AAP_URL %>assets/libs/prismjs/prism.js"></script>
+    <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery.validate.min.js"></script>
+    <!-- validation init -->
+    <script src="<%= process.env.AAP_URL %>assets/js/pages/form-validation.init.js"></script>
+    <script>
+        $.validator.addMethod("email", function (value, element) {
+            return this.optional(element) || value == value.match(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/);
+        }, "Please Enter Valid Email Address ");
+        $('#create_form').validate({ // initialize the plugin
+
+            errorClass: "error",
+            rules: {
+                name: {
+                    required: true,
+
+                },
+                contact_no: {
+                    required: true,
+
+                },
+                email: {
+                    required: true,
+                    email: true
+                }
+
+            },
+            messages: {
+                name: {
+                    required: 'Please enter name',
+                },
+                contact_no: {
+                    required: 'Please enter contact no',
+                },
+                email: {
+                    required: 'Please enter email',
+                }
+            },
+            highlight: function (element) {
+                $(element).addClass('input_error');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('input_error');
+
+            }
+        });
+
+        $("#rowAdder").click(function () {
+            newRowAdd =
+            '<div id="row" class="row gy-4"><div class="col-xxl-5 col-md-5">' +
+                '<div><label for="prod_name" class="form-label">Product:</label>'+
+                    '<input type="text" name="prod_name[]" class="form-control input reset_input" id="prod_name" placeholder="Enter product" required></div>'+
+            '</div>'+
+            '<div class="col-xxl-5 col-md-5">'+
+                '<div><label for="prod_price" class="form-label">Price:</label>'+
+                    '<input type="text" name="prod_price[]" class="form-control input reset_input" id="prod_price" placeholder="Enter price" required></div>'+
+           '</div>'+
+            '<div class="col-xxl-2 col-md-2">'+
+                '<label for="form-grid-showcode" class="form-label text-muted"><a id="DeleteRow" class="btn btn-danger waves-effect mt-4"> <i class="ri-delete-bin-5-fill"></i>Delete</a></label>'+
+            '</div>'+
+            '</div>';
+ 
+            $('#newRow').append(newRowAdd);
+        });
+
+        $("body").on("click", "#DeleteRow", function () {
+            $(this).parents("#row").remove();
+        })
+
+    </script>
+    <!-- App js -->
+    <script src="<%= process.env.AAP_URL %>assets/js/app.js"></script>
+</body>
+
+</html>

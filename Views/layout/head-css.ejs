@@ -1,0 +1,27 @@
+<!-- Layout config Js -->
+<script src="<%= process.env.AAP_URL %>assets/js/layout.js"></script>
+<!-- Bootstrap Css -->
+<link href="<%= process.env.AAP_URL %>assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<!-- Icons Css -->
+<link href="<%= process.env.AAP_URL %>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<!-- App Css-->
+<link href="<%= process.env.AAP_URL %>assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+<!-- custom Css-->
+<link href="<%= process.env.AAP_URL %>assets/css/custom.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+<style>
+            .loader{
+                  position: fixed;
+                  left: 0px;
+                  top: 0px;
+                  width: 100%;
+                  height: 100%;
+                  z-index: 9999; 
+                   background: url('<%= process.env.AAP_URL %>assets/images/loadingdots2.gif') 
+                  50% 50% no-repeat rgb(249,249,249);
+                  opacity: 1;
+                   background-size: 250px 200px; 
+                }
+               
+    
+</style>

@@ -1,0 +1,174 @@
+<%- contentFor('HeaderCss') %>
+
+    <!-- Bootstrap Css -->
+    <link href="<%= process.env.AAP_URL %>assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Plugins css -->
+    <link href="<%= process.env.AAP_URL %>assets/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="<%= process.env.AAP_URL %>assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <!-- gridjs css -->
+    <link rel="stylesheet" href="<%= process.env.AAP_URL %>assets/libs/gridjs/theme/mermaid.min.css">
+    <link href="<%= process.env.AAP_URL %>assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <link href="<%= process.env.AAP_URL %>assets/libs/choices.js/public/assets/styles/choices.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" 
+    integrity="sha512-cyzxRvewl+FOKTtpBzYjW6x6IAYUCZy3sGP40hn+DQkqeluGRCax7qztK2ImL64SA+C7kVWdLI6wvdlStawhyw==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <%- contentFor('body') %>
+        <div class="row">
+            <div id="alert_msg" style="display: none;">
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <a href="<%= process.env.AAP_URL %>superadmin/college" class="btn btn-primary waves-effect"><i class="las la-long-arrow-alt-left"></i> Back</a>
+
+                    </div>
+                    <!-- end card header -->
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <form class="form needs-validation" id="create_form" enctype="multipart/form-data" method="post" action="<%= process.env.AAP_URL %>superadmin/college/create">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="collegeName" class="form-label">College Name</label>
+                                            <input type="text" name="collegeName" class="form-control input" id="collegeName" placeholder="College Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="email" class="form-label">Email ID</label>
+                                            <input type="email" name="email" class="form-control input" id="email" placeholder="Email ID">
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="phone" class="form-label">Phone</label>
+                                            <input type="text" name="phone" class="form-control input" id="phone" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="city" class="form-label">City</label>
+                                            <input type="text" name="city" class="form-control input" id="city" placeholder="City">
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-4">
+                                        <div>
+                                            <label for="address" class="form-label">Address</label>
+                                            <textarea class="form-control" name="address" class="form-control input reset_input" id="address" rows="5"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Gallery Section</h5>
+                                    </div>
+
+                                    <div class="col-xxl-6 col-md-6">
+                                        <div>
+                                            <h5 class="fs-15 mb-1">College Logo</h5>
+                                            <p class="text-muted">Add College Logo</p>
+                                            <input class="filepond" id="collegeLogo" type="file" name="collegeLogo" accept="image/png, image/gif, image/jpeg">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" id="create_btn" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!--end row-->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <%- contentFor('FooterJs') %>
+
+        <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery-3.6.0.min.js" ></script>
+        <script src="<%= process.env.AAP_URL %>assets/libs/prismjs/prism.js"></script>
+        <script src="<%= process.env.AAP_URL %>assets/js/jquery/jquery.validate.min.js" ></script>
+        <!-- password-addon init -->
+        <script src="<%= process.env.AAP_URL %>assets/js/pages/form-validation.init.js"></script>
+        <!-- Sweet Alerts js -->
+        <script src="<%= process.env.AAP_URL %>assets/libs/sweetalert2/sweetalert2.min.js"></script>
+        <!-- Sweet alert init js-->
+        <script src="<%= process.env.AAP_URL %>assets/js/pages/sweetalerts.init.js"></script>
+        <script src="<%= process.env.AAP_URL %>assets/libs/flatpickr/flatpickr.min.js"></script>
+        <script src="<%= process.env.AAP_URL %>assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+        <!--Wysiwig js-->
+        <script src="<%= process.env.AAP_URL %>assets/tinymce/tinymce.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" 
+            integrity="sha512-6lplKUSl86rUVprDIjiW8DuOniNX8UDoRATqZSds/7t6zCQZfaCe3e5zcGaQwxa8Kpn5RTM9Fvl3X2lLV4grPQ==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script>
+                $(document).ready(function() {
+                });
+            
+                $('#create_form').validate({ // initialize the plugin
+
+                    errorClass: "error",
+                    rules: {
+                        title: {
+                            required: true,
+                        },
+                        sub_title: {
+                            required: true,
+                        },
+                        avatar: {
+                            required: true,
+                        },
+                        video: {
+                            required: true,
+                        },
+                        profile_desc:{
+                            required: true,
+                        },
+                        chef_status: {
+                            required: true,
+                        },
+                        supplier: {
+                            required: true,
+                        }
+                    },
+                    messages: {
+                        title: {
+                            required: 'Please enter title',
+                        },
+                        sub_title: {
+                            required: 'Please enter sub title',
+                        },
+                        avatar: {
+                            required: 'Please enter Chef Image',
+                        },
+                        video: {
+                            required: 'Please enter video',
+                        },
+                        profile_desc:{
+                            required: 'Please select profile desc',
+                        },
+                        chef_status: {
+                            required: 'Please enter chef status',
+                        },
+                        supplier: {
+                            required: 'Please enter supplier',
+                        }
+                    },
+                    highlight: function(element) {
+                        $(element).addClass('input_error');
+                    },
+                    unhighlight: function(element) {
+                        $(element).removeClass('input_error');
+
+                    }
+                });
+
+
+            </script>
+            

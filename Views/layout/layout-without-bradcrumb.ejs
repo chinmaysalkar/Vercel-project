@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-layout="horizontal" data-layout-style="detached" data-layout-position="fixed" data-topbar="dark"
+    data-sidebar="light" data-sidebar-size="lg" data-layout-width="fluid" data-layout-mode="light">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title> <%-title%> </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="<%= process.env.AAP_URL %>assets/images/favicon1.ico">
+    <%- HeaderCss %>
+
+<%- include ('./head-css.ejs') %>
+
+</head>
+
+<body>
+    <div id="layout-wrapper">
+        <%- include ('./topbar') %>
+        <%- include ('./sidebar') %>
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <%- body%>
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+            <%- include ('./footer') %>
+
+        </div>
+        <!-- end main content-->
+    </div>
+    <!-- END layout-wrapper -->
+    <%- include ('./customizer') %>
+    <%- include ('./vendor-scripts') %>
+    <%- FooterJs %>
+
+    <!-- App js -->
+    <script src="<%= process.env.AAP_URL %>assets/js/app.js"></script>
+</body>
+
+</html>
