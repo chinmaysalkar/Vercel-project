@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "vercel-project",
+    "name": "mobischool",
     "builds": [
       { "src": "app.js", "use": "@vercel/node" }
     ],
