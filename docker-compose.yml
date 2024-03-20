@@ -1,11 +1,28 @@
-version: '3'
+version: '3.9'
+
 services:
-  web:
-    image: we-learn-image
-    build:
-      context: .
-      dockerfile: Dockerfile
+  mongo_db:
+    container_name: mobischool_container
+    image: we-learn-image:latest
+    restart: always
     ports:
-      - '3000:3000'
+      - 2717:27017
     volumes:
-      - ./src:/app/src
+      - mongo_db:/data/db
+
+  api:
+    build: .
+    dockerfile: Dockerfile
+    ports:
+      - 4000:3000
+    volumes:
+      - .:/usr/src/app
+    environment:
+      PORT: 4000
+      DATABASE_URL: mongodb+srv://ilearn:nn7RMniQ6GNji3Cm@cluster0.lxozdxf.mongodb.net/ilearn_development
+      NODE_ENV: development
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_db: {}
