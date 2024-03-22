@@ -2,19 +2,18 @@ version: '3.9'
 
 services:
   mongo_db:
-    container_name: mobischool_container
-    image: we-learn-image:latest
-    restart: always
+    container_name: mobischool_mongo
+    image: mongo
     ports:
-      - 2717:27017
+      - 27017:27017
     volumes:
       - mongo_db:/data/db
 
   api:
+    container_name: mobischool_api
     build: .
-    dockerfile: Dockerfile
     ports:
-      - 4000:3000
+      - 4000:4000
     volumes:
       - .:/usr/src/app
     environment:

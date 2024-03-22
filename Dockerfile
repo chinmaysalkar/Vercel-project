@@ -1,13 +1,14 @@
 FROM node:16
 
-WORKDIR /usr/src/app
+WORKDIR '/app'
 
-COPY package*.json .
-RUN npm ci
+COPY package.json .
+
+RUN npm i
 
 COPY . .
 
 # Expose port
-EXPOSE 3000
+EXPOSE 4000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
